@@ -1,5 +1,6 @@
 # IDE
 .idea/
+.DS_Store
 
 # Large data, see gs://pantheon-models/voice-conversion/data
 data/pretrained_vocoders

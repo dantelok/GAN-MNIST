@@ -1,6 +1,7 @@
 _target_: src.models.mnist_gan_model.MNISTGANModel
 
-lr: 0.0002
+d_lr: 0.0002
+g_lr: 0.0002
 b1: 0.5
 b2: 0.999
 n_classes: 10
@@ -10,6 +11,15 @@ img_size: 32
 
 # TODO: instantiate the generator and discriminator objects with Hydra
 #       https://hydra.cc/docs/advanced/instantiate_objects/overview/
-generator: null
+generator:
+  _target_: src.models.modules.generators.Generator
+  latent_dim: 100
+  img_size: 32
+  channels: 1
+  n_classes: 10
 
-discriminator: null
+discriminator:
+  _target_: src.models.modules.discriminators.Discriminator
+  img_size: 32
+  channels: 1
+  n_classes: 10

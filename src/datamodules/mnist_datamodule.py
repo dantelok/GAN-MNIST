@@ -2,7 +2,7 @@ from typing import Optional, Tuple
 
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import ConcatDataset, DataLoader, Dataset, random_split
-from torchvision.datasets import MNIST
+from torchvision.datasets import MNIST, FashionMNIST
 from torchvision.transforms import transforms
 
 
@@ -66,11 +66,15 @@ class MNISTDataModule(LightningDataModule):
         Do not use it to assign state (self.x = y)."""
         MNIST(self.data_dir, train=True, download=True)
         MNIST(self.data_dir, train=False, download=True)
+        # FashionMNIST(self.data_dir, train=True, download=True)
+        # FashionMNIST(self.data_dir, train=False, download=True)
 
     def setup(self, stage: Optional[str] = None):
         """Load data. Set variables: self.data_train, self.data_val, self.data_test."""
         trainset = MNIST(self.data_dir, train=True, transform=self.transforms)
         testset = MNIST(self.data_dir, train=False, transform=self.transforms)
+        # trainset = FashionMNIST(self.data_dir, train=True, transform=self.transforms)
+        # testset = FashionMNIST(self.data_dir, train=False, transform=self.transforms)
         dataset = ConcatDataset(datasets=[trainset, testset])
         self.data_train, self.data_val, self.data_test = random_split(
             dataset, self.train_val_test_split
